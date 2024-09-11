@@ -1,1 +1,158 @@
-Hello world
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品選購頁面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .header {
+            background-color: #4fa3e3;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            position: relative;
+        }
+        .header div {
+            margin: 5px 0;
+        }
+        .clear-button {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .product-list {
+            padding: 10px;
+        }
+        .product-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .product-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .product-name {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .product-price {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+        .quantity-control {
+            display: flex;
+            align-items: center;
+        }
+        .quantity-control button {
+            width: 30px;
+            height: 30px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            font-size: 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+        .quantity-control input {
+            width: 40px;
+            text-align: center;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div>總售價: <span id="total-price">0</span> 元</div>
+        <button class="clear-button" onclick="resetQuantities()">一鍵清空</button>
+    </div>
+
+    <div class="product-list">
+        <!-- 商品1 -->
+        <div class="product-item">
+            <div class="product-info">
+                <div class="product-name">活力基本營養套裝</div>
+                <div class="product-price">售價：2800 元</div>
+            </div>
+            <div class="quantity-control">
+                <button onclick="decreaseQuantity(this)">-</button>
+                <input type="number" value="1" min="0" onchange="updateTotal()">
+                <button onclick="increaseQuantity(this)">+</button>
+            </div>
+        </div>
+        
+        <!-- 商品2 -->
+        <div class="product-item">
+            <div class="product-info">
+                <div class="product-name">兒童營養片</div>
+                <div class="product-price">售價：900 元</div>
+            </div>
+            <div class="quantity-control">
+                <button onclick="decreaseQuantity(this)">-</button>
+                <input type="number" value="1" min="0" onchange="updateTotal()">
+                <button onclick="increaseQuantity(this)">+</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function increaseQuantity(button) {
+            const input = button.previousElementSibling;
+            input.value = parseInt(input.value) + 1;
+            updateTotal();
+        }
+
+        function decreaseQuantity(button) {
+            const input = button.nextElementSibling;
+            if (parseInt(input.value) > 0) {
+                input.value = parseInt(input.value) - 1;
+                updateTotal();
+            }
+        }
+
+        function updateTotal() {
+            // 獲取所有商品價格和數量，計算總價
+            let totalPrice = 0;
+            const productPrices = [2800, 900]; // 兩個商品的價格
+
+            const inputs = document.querySelectorAll('.quantity-control input');
+            inputs.forEach((input, index) => {
+                const quantity = parseInt(input.value);
+                totalPrice += productPrices[index] * quantity;
+            });
+
+            document.getElementById('total-price').textContent = totalPrice;
+        }
+
+        function resetQuantities() {
+            // 將所有商品的數量重置為0
+            const inputs = document.querySelectorAll('.quantity-control input');
+            inputs.forEach(input => {
+                input.value = 0;
+            });
+            updateTotal();
+        }
+    </script>
+</body>
+</html>
