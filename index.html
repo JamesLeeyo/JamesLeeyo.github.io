@@ -146,7 +146,7 @@
                 totalPrice += productPrices[index] * quantity;
             });
 
-            document.getElementById('total-price').textContent = totalPrice;
+            document.getElementById('total-price').textContent = totalPrice.toLocaleString();
         }
 
         function resetQuantities() {
