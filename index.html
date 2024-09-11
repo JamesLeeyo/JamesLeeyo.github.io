@@ -92,8 +92,8 @@
         <!-- 商品1 -->
         <div class="product-item">
             <div class="product-info">
-                <div class="product-name">活力基本營養套裝</div>
-                <div class="product-price">售價：2800 元</div>
+                <div class="product-name">長盤</div>
+                <div class="product-price">售價：10,000 元</div>
             </div>
             <div class="quantity-control">
                 <button onclick="decreaseQuantity(this)">-</button>
@@ -105,8 +105,8 @@
         <!-- 商品2 -->
         <div class="product-item">
             <div class="product-info">
-                <div class="product-name">兒童營養片</div>
-                <div class="product-price">售價：900 元</div>
+                <div class="product-name">方盤</div>
+                <div class="product-price">售價：200,000 元</div>
             </div>
             <div class="quantity-control">
                 <button onclick="decreaseQuantity(this)">-</button>
@@ -134,7 +134,7 @@
         function updateTotal() {
             // 獲取所有商品價格和數量，計算總價
             let totalPrice = 0;
-            const productPrices = [2800, 900]; // 兩個商品的價格
+            const productPrices = [10000, 200000]; // 兩個商品的價格
 
             const inputs = document.querySelectorAll('.quantity-control input');
             inputs.forEach((input, index) => {
