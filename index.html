@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"> <!-- 禁用縮放 -->
     <title>商品選購頁面</title>
     <style>
         body {
@@ -10,6 +10,9 @@
             margin: 0;
             padding: 0;
             background-color: #f0f0f0;
+            -webkit-touch-callout: none; /* 禁用長按 */
+            -webkit-user-select: none;   /* 禁用用戶選擇 */
+            user-select: none;           /* 禁用用戶選擇 */
         }
         .header {
             background-color: #4fa3e3;
@@ -75,6 +78,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            touch-action: manipulation; /* 禁止點擊放大行為 */
+            outline: none; /* 禁用焦點外框 */
         }
         .quantity-control input {
             width: 35px;
@@ -83,6 +88,8 @@
             font-size: 16px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            touch-action: manipulation; /* 禁止點擊放大行為 */
+            outline: none; /* 禁用焦點外框 */
         }
         /* 彈出式視窗 */
         .modal {
@@ -130,7 +137,7 @@
             color: white;
         }
         .share-button {
-            margin: 20px auto 0; /* 上方外距設定為20px */
+            margin: 20px auto 0; /* 置中按鈕並增加上方外距 */
             background-color: #28a745;
             color: white;
             border: none;
@@ -139,7 +146,7 @@
             cursor: pointer;
             display: block;
             text-align: center;
-            width: 100px; /* 按鈕的寬度可以根據需要調整 */
+            width: 100px;
         }
     </style>
 </head>
