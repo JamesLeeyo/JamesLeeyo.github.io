@@ -136,17 +136,31 @@
             background-color: #4fa3e3;
             color: white;
         }
-        .share-button, .download-button {
-            margin: 10px auto 0;
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .share-button {
             background-color: #28a745;
             color: white;
             border: none;
             padding: 10px 15px;
             border-radius: 5px;
             cursor: pointer;
-            display: block;
-            text-align: center;
             width: 100px;
+            text-align: center;
+        }
+        .download-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100px;
+            text-align: center;
         }
     </style>
 </head>
@@ -185,9 +199,11 @@
                     </tr>
                 </tfoot>
             </table>
-            <!-- 分享按鈕和下載按鈕 -->
-            <button class="share-button" onclick="shareCart()">分享</button>
-            <button class="download-button" onclick="downloadCart()">下載</button>
+            <!-- 分享按鈕和下載按鈕容器 -->
+            <div class="button-container">
+                <button class="share-button" onclick="shareCart()">分享</button>
+                <button class="download-button" onclick="downloadCart()">下載</button>
+            </div>
         </div>
     </div>
 
@@ -314,7 +330,7 @@
                         await navigator.share({
                             files: [file],
                             title: '購買清單',
-                            text: '這是您的購買清單',
+                            text: '這是我的購買清單',
                         });
                         console.log('分享成功');
                     } catch (err) {
