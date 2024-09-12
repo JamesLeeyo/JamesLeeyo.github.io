@@ -320,7 +320,15 @@
 
         async function shareCart() {
             const cartModalContent = document.querySelector('.modal-content');
+            const buttonContainer = document.querySelector('.button-container');
+
+            // 在截圖之前隱藏按鈕
+            buttonContainer.style.display = 'none';
+
             const canvas = await html2canvas(cartModalContent); // 使用 html2canvas 將彈出視窗的內容轉換為畫布
+
+            // 截圖完成後，重新顯示按鈕
+            buttonContainer.style.display = 'flex';
 
             canvas.toBlob(async (blob) => {
                 const file = new File([blob], '購買清單.png', { type: 'image/png' }); // 將畫布轉換為 PNG 文件
@@ -330,7 +338,7 @@
                         await navigator.share({
                             files: [file],
                             title: '購買清單',
-                            text: '這是我的購買清單',
+                            text: '這是您的購買清單',
                         });
                         console.log('分享成功');
                     } catch (err) {
@@ -344,11 +352,19 @@
 
         async function downloadCart() {
             const cartModalContent = document.querySelector('.modal-content');
+            const buttonContainer = document.querySelector('.button-container');
+
+            // 在截圖之前隱藏按鈕
+            buttonContainer.style.display = 'none';
+
             const canvas = await html2canvas(cartModalContent); // 使用 html2canvas 將彈出視窗的內容轉換為畫布
+
+            // 截圖完成後，重新顯示按鈕
+            buttonContainer.style.display = 'flex';
 
             // 生成當前時間的字串格式，作為檔名的一部分
             const now = new Date();
-            const formattedTime = `${now.getFullYear()}${(now.getMonth()+1).toString().padStart(2, '0')}${now.getDate().toString().padStart(2, '0')}_${now.getHours().toString().padStart(2, '0')}${now.getMinutes().toString().padStart(2, '0')}`;
+            const formattedTime = `${now.getFullYear()}${(now.getMonth() + 1).toString().padStart(2, '0')}${now.getDate().toString().padStart(2, '0')}_${now.getHours().toString().padStart(2, '0')}${now.getMinutes().toString().padStart(2, '0')}`;
 
             const link = document.createElement('a');
             link.href = canvas.toDataURL('image/png');
