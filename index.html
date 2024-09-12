@@ -328,23 +328,31 @@
             const cartModalContent = document.querySelector('.modal-content');
             const buttonContainer = document.querySelector('.button-container');
 
-            // 在截圖之前隱藏按鈕
-            buttonContainer.style.display = 'none';
+            // 隱藏按鈕並將內容高度設置為自適應
+            buttonContainer.style.visibility = 'hidden';
+            cartModalContent.style.maxHeight = 'none'; // 取消高度限制
+            cartModalContent.style.overflow = 'visible'; // 確保所有內容可見
 
-            const canvas = await html2canvas(cartModalContent); // 使用 html2canvas 將彈出視窗的內容轉換為畫布
+            const canvas = await html2canvas(cartModalContent, {
+                scrollY: -window.scrollY, // 確保滾動位置不影響截圖
+                windowWidth: document.documentElement.offsetWidth,
+                windowHeight: document.documentElement.offsetHeight,
+            });
 
-            // 截圖完成後，重新顯示按鈕
-            buttonContainer.style.display = 'flex';
+            // 截圖完成後，重新顯示按鈕並恢復原來的樣式
+            buttonContainer.style.visibility = 'visible';
+            cartModalContent.style.maxHeight = '80vh'; // 恢復高度限制
+            cartModalContent.style.overflowY = 'auto'; // 恢復滾動樣式
 
             canvas.toBlob(async (blob) => {
-                const file = new File([blob], '購買清單.png', { type: 'image/png' }); // 將畫布轉換為 PNG 文件
+                const file = new File([blob], '購買清單.png', { type: 'image/png' });
 
-                if (navigator.share) { // 檢查瀏覽器是否支持 Web Share API
+                if (navigator.share) {
                     try {
                         await navigator.share({
                             files: [file],
                             title: '購買清單',
-                            text: '這是您的購買清單',
+                            text: '這是我的購買清單',
                         });
                         console.log('分享成功');
                     } catch (err) {
@@ -360,13 +368,21 @@
             const cartModalContent = document.querySelector('.modal-content');
             const buttonContainer = document.querySelector('.button-container');
 
-            // 在截圖之前隱藏按鈕
-            buttonContainer.style.display = 'none';
+            // 隱藏按鈕並將內容高度設置為自適應
+            buttonContainer.style.visibility = 'hidden';
+            cartModalContent.style.maxHeight = 'none'; // 取消高度限制
+            cartModalContent.style.overflow = 'visible'; // 確保所有內容可見
 
-            const canvas = await html2canvas(cartModalContent); // 使用 html2canvas 將彈出視窗的內容轉換為畫布
+            const canvas = await html2canvas(cartModalContent, {
+                scrollY: -window.scrollY, // 確保滾動位置不影響截圖
+                windowWidth: document.documentElement.offsetWidth,
+                windowHeight: document.documentElement.offsetHeight,
+            });
 
-            // 截圖完成後，重新顯示按鈕
-            buttonContainer.style.display = 'flex';
+            // 截圖完成後，重新顯示按鈕並恢復原來的樣式
+            buttonContainer.style.visibility = 'visible';
+            cartModalContent.style.maxHeight = '80vh'; // 恢復高度限制
+            cartModalContent.style.overflowY = 'auto'; // 恢復滾動樣式
 
             // 生成當前時間的字串格式，作為檔名的一部分
             const now = new Date();
