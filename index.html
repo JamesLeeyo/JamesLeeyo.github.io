@@ -150,6 +150,7 @@
                 <thead>
                     <tr>
                         <th>品名</th>
+                        <th>單價</th>
                         <th>數量</th>
                         <th>價格</th>
                     </tr>
@@ -159,7 +160,7 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="2">全部總價</td>
+                        <td colspan="3">全部總價</td>
                         <td id="cart-total-price">0 元</td>
                     </tr>
                 </tfoot>
@@ -259,6 +260,7 @@
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${productName}</td>
+                        <td>${productPrice.toLocaleString()} 元</td>
                         <td>${quantity}</td>
                         <td>${totalPrice.toLocaleString()} 元</td>
                     `;
