@@ -1,10 +1,36 @@
 [
-    {
-        "productName": "長盤",
-        "productPrice": 10000
-    },
-    {
-        "productName": "方盤",
-        "productPrice": 200000
-    }
+    {"productName": "香爐 (八卦)", "productPrice": 3000},
+    {"productName": "香爐 (常花)", "productPrice": 4500},
+    {"productName": "香爐 (雪月花)", "productPrice": 3500},
+    {"productName": "方盤 (大內)", "productPrice": 6000},
+    {"productName": "方盤 (意)", "productPrice": 5000},
+    {"productName": "方盤 (蒼)", "productPrice": 5500},
+    {"productName": "方盤 (茶)", "productPrice": 6000},
+    {"productName": "方盤 (瓷)", "productPrice": 6000},
+    {"productName": "方盤 (東)", "productPrice": 6000},
+    {"productName": "長盤 (真)", "productPrice": 1800},
+    {"productName": "長盤 (海)", "productPrice": 4500},
+    {"productName": "香瓶 (白密)", "productPrice": 1500},
+    {"productName": "香瓶 + 浄器 (常花)", "productPrice": 4500},
+    {"productName": "銀葉盒", "productPrice": 1500},
+    {"productName": "銀葉盤/香札", "productPrice": 8500},
+    {"productName": "亂箱", "productPrice": 15000},
+    {"productName": "總包", "productPrice": 2500},
+    {"productName": "火箸", "productPrice": 650},
+    {"productName": "火道具 (日)", "productPrice": 8500},
+    {"productName": "火道具 (中)", "productPrice": 3500},
+    {"productName": "銀葉包", "productPrice": 1500},
+    {"productName": "御香袋", "productPrice": 6000},
+    {"productName": "香百紙 (500枚)", "productPrice": 3000},
+    {"productName": "香灰 (大)", "productPrice": 1000},
+    {"productName": "香灰 (小)", "productPrice": 650},
+    {"productName": "磬", "productPrice": 350},
+    {"productName": "銀葉一枚", "productPrice": 1500},
+    {"productName": "御骨紗 (朱)", "productPrice": 1500},
+    {"productName": "御骨紗 (紫)", "productPrice": 1500},
+    {"productName": "地攤 (小)", "productPrice": 2300},
+    {"productName": "地攤 (大)", "productPrice": 4000},
+    {"productName": "古骨紗", "productPrice": 1000},
+    {"productName": "古骨紗 (特選)", "productPrice": 2500},
+    {"productName": "地數", "productPrice": 6500}
 ]
