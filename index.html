@@ -102,6 +102,7 @@
             border: 1px solid #888;
             width: 80%;
             max-width: 500px;
+            position: relative;
         }
         .close {
             color: #aaa;
@@ -127,6 +128,17 @@
         th {
             background-color: #4fa3e3;
             color: white;
+        }
+        .share-button {
+            margin-top: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            text-align: center;
         }
     </style>
 </head>
@@ -165,9 +177,14 @@
                     </tr>
                 </tfoot>
             </table>
+            <!-- 分享按鈕 -->
+            <button class="share-button" onclick="shareCart()">分享</button>
         </div>
     </div>
 
+    <!-- 引入 html2canvas 庫 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
     <script>
         const productDataUrl = 'products.json'; // JSON 文件的路徑
 
@@ -260,7 +277,7 @@
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${productName}</td>
-                        <td>${productPrice.toLocaleString()}</td>
+                        <td>${productPrice.toLocaleString()} 元</td>
                         <td>${quantity}</td>
                         <td>${totalPrice.toLocaleString()} 元</td>
                     `;
@@ -274,6 +291,30 @@
 
         function closeCart() {
             document.getElementById('cartModal').style.display = 'none';
+        }
+
+        async function shareCart() {
+            const cartModalContent = document.querySelector('.modal-content');
+            const canvas = await html2canvas(cartModalContent); // 使用 html2canvas 將彈出視窗的內容轉換為畫布
+
+            canvas.toBlob(async (blob) => {
+                const file = new File([blob], '購買清單.png', { type: 'image/png' }); // 將畫布轉換為 PNG 文件
+
+                if (navigator.share) { // 檢查瀏覽器是否支持 Web Share API
+                    try {
+                        await navigator.share({
+                            files: [file],
+                            title: '購買清單',
+                            text: '這是我的購買清單',
+                        });
+                        console.log('分享成功');
+                    } catch (err) {
+                        console.error('分享失敗', err);
+                    }
+                } else {
+                    alert('此瀏覽器不支持分享功能');
+                }
+            });
         }
 
         fetchProductData(); // 初始化時獲取商品數據
