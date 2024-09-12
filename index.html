@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"> <!-- 禁用縮放 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>商品選購頁面</title>
     <style>
         body {
@@ -10,9 +10,9 @@
             margin: 0;
             padding: 0;
             background-color: #f0f0f0;
-            -webkit-touch-callout: none; /* 禁用長按 */
-            -webkit-user-select: none;   /* 禁用用戶選擇 */
-            user-select: none;           /* 禁用用戶選擇 */
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
         }
         .header {
             background-color: #4fa3e3;
@@ -78,8 +78,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            touch-action: manipulation; /* 禁止點擊放大行為 */
-            outline: none; /* 禁用焦點外框 */
+            touch-action: manipulation;
+            outline: none;
         }
         .quantity-control input {
             width: 35px;
@@ -88,14 +88,14 @@
             font-size: 16px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            touch-action: manipulation; /* 禁止點擊放大行為 */
-            outline: none; /* 禁用焦點外框 */
+            touch-action: manipulation;
+            outline: none;
         }
         /* 彈出式視窗 */
         .modal {
-            display: none; 
-            position: fixed; 
-            z-index: 1001; 
+            display: none;
+            position: fixed;
+            z-index: 1001;
             left: 0;
             top: 0;
             width: 100%;
@@ -104,7 +104,7 @@
         }
         .modal-content {
             background-color: #fefefe;
-            margin: 15% auto; 
+            margin: 15% auto;
             padding: 20px;
             border: 1px solid #888;
             width: 80%;
@@ -136,8 +136,8 @@
             background-color: #4fa3e3;
             color: white;
         }
-        .share-button {
-            margin: 20px auto 0; /* 置中按鈕並增加上方外距 */
+        .share-button, .download-button {
+            margin: 10px auto 0;
             background-color: #28a745;
             color: white;
             border: none;
@@ -185,8 +185,9 @@
                     </tr>
                 </tfoot>
             </table>
-            <!-- 分享按鈕 -->
+            <!-- 分享按鈕和下載按鈕 -->
             <button class="share-button" onclick="shareCart()">分享</button>
+            <button class="download-button" onclick="downloadCart()">下載</button>
         </div>
     </div>
 
@@ -313,7 +314,7 @@
                         await navigator.share({
                             files: [file],
                             title: '購買清單',
-                            text: '這是我的購買清單',
+                            text: '這是您的購買清單',
                         });
                         console.log('分享成功');
                     } catch (err) {
@@ -323,6 +324,20 @@
                     alert('此瀏覽器不支持分享功能');
                 }
             });
+        }
+
+        async function downloadCart() {
+            const cartModalContent = document.querySelector('.modal-content');
+            const canvas = await html2canvas(cartModalContent); // 使用 html2canvas 將彈出視窗的內容轉換為畫布
+
+            // 生成當前時間的字串格式，作為檔名的一部分
+            const now = new Date();
+            const formattedTime = `${now.getFullYear()}${(now.getMonth()+1).toString().padStart(2, '0')}${now.getDate().toString().padStart(2, '0')}_${now.getHours().toString().padStart(2, '0')}${now.getMinutes().toString().padStart(2, '0')}`;
+
+            const link = document.createElement('a');
+            link.href = canvas.toDataURL('image/png');
+            link.download = `購買清單_${formattedTime}.png`; // 設置下載檔名
+            link.click();
         }
 
         fetchProductData(); // 初始化時獲取商品數據
