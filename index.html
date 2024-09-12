@@ -112,6 +112,7 @@
             max-height: 80vh; /* 限制彈出視窗的最大高度 */
             overflow-y: auto; /* 當內容超過視窗高度時顯示滾動條 */
             position: relative;
+            padding-bottom: 60px; /* 為按鈕容器預留空間 */
         }
         .close {
             color: #aaa;
@@ -143,10 +144,14 @@
             justify-content: center;
             gap: 20px;
             padding: 10px 0;
-            position: sticky; /* 粘性定位 */
-            bottom: 0; /* 距離底部 */
+            position: fixed; /* 固定定位 */
+            bottom: 20px; /* 距離視窗底部 */
+            left: 50%;
+            transform: translateX(-50%);
             background-color: #fefefe; /* 背景色和 modal-content 一致 */
             z-index: 10; /* 保證在其他內容之上 */
+            width: 80%;
+            max-width: 500px;
         }
         .share-button {
             background-color: #28a745;
