@@ -16,12 +16,13 @@
             color: white;
             padding: 10px;
             text-align: center;
-            position: relative;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .header div {
-            margin: 5px 0;
-        }
-
         .product-list {
             padding: 10px;
         }
@@ -48,16 +49,14 @@
             color: #666;
             margin-top: 5px;
         }
-        .clear-button {
-            position: absolute;
-            right: 10px;
-            top: 10px;
+        .clear-button, .cart-button {
             background-color: #ff4d4d;
             color: white;
             border: none;
             padding: 5px 10px;
             border-radius: 5px;
             cursor: pointer;
+            margin-left: 10px;
         }
         .quantity-control {
             display: flex;
@@ -85,16 +84,87 @@
             border: 1px solid #ccc;
             border-radius: 5px;
         }
+        /* 彈出式視窗 */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1001; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #4fa3e3;
+            color: white;
+        }
     </style>
 </head>
 <body>
     <div class="header">
+        <button class="cart-button" onclick="openCart()">購買清單</button>
         <div>總售價: <span id="total-price">0</span> 元</div>
         <button class="clear-button" onclick="resetQuantities()">一鍵清空</button>
     </div>
 
     <div class="product-list" id="product-list">
         <!-- 商品項目將由JavaScript動態生成 -->
+    </div>
+
+    <!-- 彈出式視窗 -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCart()">&times;</span>
+            <h3>購買清單</h3>
+            <table id="cart-table">
+                <thead>
+                    <tr>
+                        <th>品名</th>
+                        <th>數量</th>
+                        <th>價格</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 購買清單內容將由JavaScript動態生成 -->
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">全部總價</td>
+                        <td id="cart-total-price">0 元</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
     </div>
 
     <script>
@@ -163,6 +233,45 @@
                 input.value = 0;
             });
             updateTotal();
+        }
+
+        function openCart() {
+            const cartModal = document.getElementById('cartModal');
+            const cartTableBody = document.querySelector('#cart-table tbody');
+            cartTableBody.innerHTML = ''; // 清空購買清單
+
+            const inputs = document.querySelectorAll('.quantity-control input');
+            const productNames = document.querySelectorAll('.product-name');
+            const productPrices = Array.from(document.querySelectorAll('.product-price')).map(priceEl => {
+                return parseInt(priceEl.textContent.replace(/[^0-9]/g, ''));
+            });
+
+            let totalCartPrice = 0;
+
+            inputs.forEach((input, index) => {
+                const quantity = parseInt(input.value);
+                if (quantity > 0) {
+                    const productName = productNames[index].textContent;
+                    const productPrice = productPrices[index];
+                    const totalPrice = productPrice * quantity;
+                    totalCartPrice += totalPrice;
+
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${productName}</td>
+                        <td>${quantity}</td>
+                        <td>${totalPrice.toLocaleString()} 元</td>
+                    `;
+                    cartTableBody.appendChild(row);
+                }
+            });
+
+            document.getElementById('cart-total-price').textContent = `${totalCartPrice.toLocaleString()} 元`;
+            cartModal.style.display = 'block';
+        }
+
+        function closeCart() {
+            document.getElementById('cartModal').style.display = 'none';
         }
 
         fetchProductData(); // 初始化時獲取商品數據
